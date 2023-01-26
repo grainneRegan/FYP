@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "fyp2-d3d49": {
+      "hosting": {
+        "FYP": [
+          "fyp2-d3d49"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "fyp2-d3d49"
+  }
+}
