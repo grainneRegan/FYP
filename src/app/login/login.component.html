@@ -1,40 +1,89 @@
 <link rel="stylesheet" href=
   "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
-<div class="displayTable">
-  <div class="displayTableCell">
-    <div class="authBlock">
-      <h3>Sign In</h3>
-      <div class="formGroup">
-        <input type="text" class="formControl" placeholder="Username" #userName required>
+
+<div class="container-fluid ps-md-0">
+  <div class="row g-0">
+    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+    <div class="col-md-8 col-lg-6">
+      <div class="login d-flex align-items-center py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-lg-8 mx-auto">
+              <div class="authBlock">
+                <h3 class="login-heading mb-4">Welcome back!</h3>
+
+                <div class="form-floating mb-3">
+                  <label for="floatingInput">Email address</label>
+                  <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" #userName required>
+                </div>
+                <div class="form-floating mb-3">
+                  <label for="floatingPassword">Password</label>
+                  <input type="password" class="form-control" id="floatingPassword" placeholder="Password" #userPassword required>
+                </div>
+                <div class="formGroup">
+                  <input type="button" class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" value="Log in" (click)="authService.SignIn(userName.value, userPassword.value)">
+                </div>
+<!--                  <div class="formGroup">-->
+<!--                    <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">-->
+<!--                      <i class="fab fa-google-plus-g"></i>-->
+<!--                      Log in with Google-->
+<!--                    </button>-->
+<!--                  </div>-->
+                <div class="d-grid">
+                  <div class="text-center">
+                    <div class="redirectToLogin">
+                      <span>Don't have an account?<span class="redirect" routerLink="/register-user"> Sign Up</span></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="formGroup">
-        <input type="password" class="formControl" placeholder="Password" #userPassword required>
-      </div>
-      <!-- Calling SignIn Api from AuthService -->
-      <div class="formGroup">
-        <input type="button" class="btn btnPrimary" value="Log in" (click)="authService.SignIn(userName.value, userPassword.value)">
-      </div>
-      <div class="formGroup">
-        <span class="or"><span class="orInner">Or</span></span>
-      </div>
-      <!-- Calling GoogleAuth Api from AuthService -->
-      <div class="formGroup">
-        <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
-          <i class="fab fa-google-plus-g"></i>
-          Log in with Google
-        </button>
-      </div>
-      <div class="forgotPassword">
-        <span routerLink="/forgot-password">Forgot Password?</span>
-      </div>
-    </div>
-    <div class="redirectToLogin">
-      <span>Don't have an account?<span class="redirect" routerLink="/register-user"> Sign Up</span></span>
     </div>
   </div>
 </div>
 
+<!--<div class="redirectToLogin">&ndash;&gt;&ndash;&gt;-->
+  <!--                    <span>Don't have an account?<span class="redirect" routerLink="/register-user"> Sign Up</span></span>-->
+  <!--                  </div>-->
+  <!--              <div class="displayTable">-->
+  <!--                <div class="displayTableCell">-->
+  <!--                  <div class="authBlock">-->
+  <!--                    <h3>Sign In</h3>-->
+  <!--                    <div class="formGroup">-->
+  <!--                      <input type="text" class="formControl" placeholder="Username" #userName required>-->
+  <!--                    </div>-->
+  <!--                    <div class="forgotPassword">-->
+  <!--                      <span routerLink="/forgot-password">Forgot Password?</span>-->
+  <!--                    </div>-->
+  <!--                    <div class="formGroup">-->
+  <!--                      <input type="password" class="formControl" placeholder="Password" #userPassword required>-->
+  <!--                    </div>-->
+  <!--                    &lt;!&ndash; Calling SignIn Api from AuthService &ndash;&gt;-->
+  <!--                    <div class="formGroup">-->
+  <!--                      <input type="button" class="btn btnPrimary" value="Log in" (click)="authService.SignIn(userName.value, userPassword.value)">-->
+  <!--                    </div>-->
+  <!--                    <div class="formGroup">-->
+  <!--                      <span class="or"><span class="orInner">Or</span></span>-->
+  <!--                    </div>-->
+  <!--                    &lt;!&ndash; Calling GoogleAuth Api from AuthService &ndash;&gt;-->
+  <!--                    <div class="formGroup">-->
+  <!--                      <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">-->
+  <!--                        <i class="fab fa-google-plus-g"></i>-->
+  <!--                        Log in with Google-->
+  <!--                      </button>-->
+  <!--                    </div>-->
+  <!--                    <div class="forgotPassword">-->
+  <!--                      <span routerLink="/forgot-password">Forgot Password?</span>-->
+  <!--                    </div>-->
+  <!--                  </div>-->
+  <!--                  <div class="redirectToLogin">-->
+  <!--                    <span>Don't have an account?<span class="redirect" routerLink="/register-user"> Sign Up</span></span>-->
+  <!--                  </div>-->
+  <!--                </div>-->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
 <!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->

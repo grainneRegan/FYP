@@ -39,6 +39,7 @@ export class AuthService {
         this.SetUserData(result.user);
         this.afAuth.authState.subscribe((user) => {
           if (user) {
+            console.log("hello")
             this.router.navigate(['home-component']);
           }
         });
@@ -54,8 +55,15 @@ export class AuthService {
       .then((result) => {
         /* Call the SendVerificaitonMail() function when new user sign
         up and returns promise */
-        this.SendVerificationMail();
+        //this.SendVerificationMail();
         this.SetUserData(result.user);
+        console.log("User: ");
+        this.afAuth.authState.subscribe((user) => {
+          if (user) {
+            console.log("User2: ");
+            this.router.navigate(['home-component']);
+          }
+        });
       })
       .catch((error) => {
         window.alert(error.message);
@@ -83,7 +91,9 @@ export class AuthService {
   // Returns true when user is logged in and email is verified
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
-    return user !== null && user.emailVerified !== false ? true : false;
+    return user !== null ? true : false;
+    // return user !== null && user.emailVerified !== false ? true : false;
+
   }
   // Sign in with Google
   GoogleAuth() {
@@ -113,10 +123,11 @@ export class AuthService {
     const userData: User = {
       uid: user.uid,
       email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-      emailVerified: user.emailVerified,
+//       displayName: user.displayName,
+//       photoURL: user.photoURL,
+//       emailVerified: user.emailVerified,
     };
+    console.log("Here");
     return userRef.set(userData, {
       merge: true,
     });
