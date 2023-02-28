@@ -1,6 +1,7 @@
 <link rel="stylesheet" href=
   "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
+
 <div class="container-fluid ps-md-0">
   <div class="row g-0">
     <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
@@ -9,46 +10,34 @@
         <div class="container">
           <div class="row">
             <div class="col-md-9 col-lg-8 mx-auto">
-              <h3 class="login-heading mb-4">Welcome back!</h3>
+              <div class="authBlock">
+                <h3 class="login-heading mb-4">Welcome back!</h3>
 
-              <!-- Sign In Form -->
-              <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                 <div class="form-floating mb-3">
                   <label for="floatingInput">Email address</label>
-                  <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"  id="inputEmail4">
-                  <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                    <div *ngIf="f.email.errors.required">Email is required</div>
-                    <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
-                  </div>
+                  <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" #userName required>
                 </div>
                 <div class="form-floating mb-3">
                   <label for="floatingPassword">Password</label>
-                  <input type="password" class="form-control" id="floatingPassword" placeholder="Password" formControlName="password"[ngClass]="{ 'is-invalid': submitted && f.password.errors }" id="inputPassword4">
-                  <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                    <div *ngIf="f.password.errors.required">Password is required</div>
-                  </div>
+                  <input type="password" class="form-control" id="floatingPassword" placeholder="Password" #userPassword required>
                 </div>
-
-                <div class="form-check mb-3">
-                  <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
-                  <label class="form-check-label" for="rememberPasswordCheck">
-                    Remember password
-                  </label>
+                <div class="formGroup">
+                  <input type="button" class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" value="Log in" (click)="authService.SignIn(userName.value, userPassword.value)">
                 </div>
-
-                <div class="d-grid">
-                  <a routerLink="/home-component" routerLinkActive="active" ><button class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" type="submit">Sign in</button></a>
-                  <div class="text-center">
-                    <a class="small" href="#">Forgot password?</a>
-                  </div>
-                </div>
-
+<!--                  <div class="formGroup">-->
+<!--                    <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">-->
+<!--                      <i class="fab fa-google-plus-g"></i>-->
+<!--                      Log in with Google-->
+<!--                    </button>-->
+<!--                  </div>-->
                 <div class="d-grid">
                   <div class="text-center">
-                    <a class="small" routerLink="sign-up-component" routerLinkActive="active">Sign Up Here</a>
+                    <div class="redirectToLogin">
+                      <span>Don't have an account?<span class="redirect" routerLink="/register-user"> Sign Up</span></span>
+                    </div>
                   </div>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
@@ -57,6 +46,44 @@
   </div>
 </div>
 
+<!--<div class="redirectToLogin">&ndash;&gt;&ndash;&gt;-->
+  <!--                    <span>Don't have an account?<span class="redirect" routerLink="/register-user"> Sign Up</span></span>-->
+  <!--                  </div>-->
+  <!--              <div class="displayTable">-->
+  <!--                <div class="displayTableCell">-->
+  <!--                  <div class="authBlock">-->
+  <!--                    <h3>Sign In</h3>-->
+  <!--                    <div class="formGroup">-->
+  <!--                      <input type="text" class="formControl" placeholder="Username" #userName required>-->
+  <!--                    </div>-->
+  <!--                    <div class="forgotPassword">-->
+  <!--                      <span routerLink="/forgot-password">Forgot Password?</span>-->
+  <!--                    </div>-->
+  <!--                    <div class="formGroup">-->
+  <!--                      <input type="password" class="formControl" placeholder="Password" #userPassword required>-->
+  <!--                    </div>-->
+  <!--                    &lt;!&ndash; Calling SignIn Api from AuthService &ndash;&gt;-->
+  <!--                    <div class="formGroup">-->
+  <!--                      <input type="button" class="btn btnPrimary" value="Log in" (click)="authService.SignIn(userName.value, userPassword.value)">-->
+  <!--                    </div>-->
+  <!--                    <div class="formGroup">-->
+  <!--                      <span class="or"><span class="orInner">Or</span></span>-->
+  <!--                    </div>-->
+  <!--                    &lt;!&ndash; Calling GoogleAuth Api from AuthService &ndash;&gt;-->
+  <!--                    <div class="formGroup">-->
+  <!--                      <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">-->
+  <!--                        <i class="fab fa-google-plus-g"></i>-->
+  <!--                        Log in with Google-->
+  <!--                      </button>-->
+  <!--                    </div>-->
+  <!--                    <div class="forgotPassword">-->
+  <!--                      <span routerLink="/forgot-password">Forgot Password?</span>-->
+  <!--                    </div>-->
+  <!--                  </div>-->
+  <!--                  <div class="redirectToLogin">-->
+  <!--                    <span>Don't have an account?<span class="redirect" routerLink="/register-user"> Sign Up</span></span>-->
+  <!--                  </div>-->
+  <!--                </div>-->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
 <!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
