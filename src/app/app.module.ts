@@ -26,6 +26,9 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 
 import { AuthService } from "./shared/services/auth.service";
 
+//imports for calendar
+import { FullCalendarModule } from '@fullcalendar/angular';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +52,8 @@ import { AuthService } from "./shared/services/auth.service";
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FullCalendarModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
