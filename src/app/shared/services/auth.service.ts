@@ -38,7 +38,7 @@ export class AuthService {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
-        this.SetUserData(result.user);
+        this.SetUserData2(result.user);
         this.afAuth.authState.subscribe((user) => {
           if (user) {
             console.log("hello")
@@ -120,7 +120,7 @@ export class AuthService {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );
-    const project = {projectName: '', description: '', date: '', done: null}
+    const project = {projectName: '', description: '', date: '', completed: null}
     const userData: User = {
       uid: user.uid,
       email: user.email,
@@ -132,6 +132,23 @@ export class AuthService {
       merge: true,
     });
   }
+
+  SetUserData2(user: any) {
+      const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+        `users/${user.uid}`
+      );
+      //const project = {projectName: '', description: '', date: '', completed: null}
+      const userData: User = {
+        uid: user.uid,
+        email: user.email,
+        //projects: [project],
+        displayName: '',
+      };
+      console.log("Here");
+      return userRef.set(userData, {
+        merge: true,
+      });
+    }
   // Sign out
   SignOut() {
     return this.afAuth.signOut().then(() => {
