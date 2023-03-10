@@ -7,6 +7,8 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
+
+import { Projects } from '../services/projects'
 @Injectable({
   providedIn: 'root',
 })
@@ -57,10 +59,8 @@ export class AuthService {
         up and returns promise */
         //this.SendVerificationMail();
         this.SetUserData(result.user);
-        console.log("User: ");
         this.afAuth.authState.subscribe((user) => {
           if (user) {
-            console.log("User2: ");
             this.router.navigate(['home-component']);
           }
         });
@@ -120,12 +120,12 @@ export class AuthService {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );
+    const project = {projectName: '', description: '', date: '', done: null}
     const userData: User = {
       uid: user.uid,
       email: user.email,
-//       displayName: user.displayName,
-//       photoURL: user.photoURL,
-//       emailVerified: user.emailVerified,
+      projects: [project],
+      displayName: '',
     };
     console.log("Here");
     return userRef.set(userData, {

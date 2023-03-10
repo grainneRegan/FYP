@@ -1,7 +1,8 @@
-export interface User {
-   uid: string;
-   email: string;
-//    displayName: string;
-//    photoURL: string;
-//    emailVerified: boolean;
+import {Projects} from './projects'
+
+export class User {
+   uid?: string;
+   email?: string;
+   projects?: Projects[];
+   displayName?: string;
 }

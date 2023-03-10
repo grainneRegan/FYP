@@ -1,0 +1,29 @@
+<div class="main">
+  <h1>My To Do List</h1>
+  <h2>Projects</h2>
+
+  <ul>
+    <li *ngFor="let item of items">Project: {{item.projectName}} : {{item.description}} due date: {{item.dueDate}} </li>
+  </ul>
+
+
+  <input
+    #newItem
+    placeholder="add a project name"
+    class="lg-text-input"
+    id="addItemInput" />
+
+  <input
+    #newItem2
+    placeholder="add a project description"
+    class="lg-text-input"
+    id="addItemInput2" />
+
+  <input
+    #newItem3
+    placeholder="add a project due date"
+    class="lg-text-input"
+    id="addItemInput3" />
+
+  <button class="btn-primary" (click)="addItem(newItem.value, newItem2.value, newItem3.value)">Add</button>
+</div>

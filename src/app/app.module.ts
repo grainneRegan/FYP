@@ -28,6 +28,11 @@ import { AuthService } from "./shared/services/auth.service";
 
 //imports for calendar
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { ProjectListComponent } from './project-list/project-list.component';
+import { UserOperationsComponent } from './user-operations/user-operations.component';
+
+import { FormsModule } from '@angular/forms';
+import { UserUpdateComponent } from './user-update/user-update.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +41,10 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     HomeComponent,
     LogInComponent,
     ForgotPasswordComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    ProjectListComponent,
+    UserOperationsComponent,
+    UserUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +61,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     AngularFireStorageModule,
     AngularFireDatabaseModule,
     AppRoutingModule,
-    FullCalendarModule
+    FullCalendarModule,
+    FormsModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
