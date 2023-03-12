@@ -74,7 +74,7 @@ export class ProjectListComponent implements OnInit {
 
        if (uid) {
          // Retrieve the projects only once, outside of the subscription
-         const newProject = { projectName, description, date, completed: false, tasks: [] };
+         const newProject = { projectName, description, date, completed: false , tasks: []};
          const projects = [...this.arrayProjects, newProject]; // create a new array with the new project added
 
          // Update the projectsService and arrayProjects properties
