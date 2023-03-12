@@ -120,7 +120,8 @@ export class AuthService {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );
-    const project = {projectName: '', description: '', date: '', completed: null}
+    const task = {taskName:'', description: '', completed: null}
+    const project = {projectName: '', description: '', date: '', completed: null, tasks: [task]}
     const userData: User = {
       uid: user.uid,
       email: user.email,
@@ -137,7 +138,6 @@ export class AuthService {
       const userRef: AngularFirestoreDocument<any> = this.afs.doc(
         `users/${user.uid}`
       );
-      //const project = {projectName: '', description: '', date: '', completed: null}
       const userData: User = {
         uid: user.uid,
         email: user.email,

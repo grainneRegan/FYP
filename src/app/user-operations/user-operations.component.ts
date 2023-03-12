@@ -22,7 +22,7 @@ export class UserOperationsComponent implements OnInit {
     title = '';
     auth = getAuth();
     projects: any;
-    arrayProjects?: any[];
+    public arrayProjects: any[] = [];
     //from authService
 
 
@@ -32,6 +32,8 @@ export class UserOperationsComponent implements OnInit {
 //     Get all users
       this.onAuthStateChanged();
       this.retrieveUsers();
+      console.log('retrieveUsers called');
+
     }
 
 //     get all users
@@ -39,6 +41,7 @@ export class UserOperationsComponent implements OnInit {
         this.currentUser2 = undefined;
         this.currentIndex = -1;
         this.retrieveUsers();
+        this.printProjects();
       }
 
       retrieveUsers(): void {
@@ -60,8 +63,29 @@ export class UserOperationsComponent implements OnInit {
           ).subscribe(data => {
             this.arrayProjects = data;
             console.log(this.arrayProjects);
+            this.printProjects();
           });
         }
+      }
+
+    addItem(projectName: string, description: string, date: string) {
+      const user2 = this.auth.currentUser;
+      const uid = user2?.uid;
+      console.log("this.currentUser.uid", uid )
+
+      if (uid) {
+        // Retrieve the projects only once, outside of the subscription
+        const newProject = { projectName, description, date, completed: false };
+        const projects = [...this.arrayProjects, newProject]; // create a new array with the new project added
+
+        // Update the projectsService and arrayProjects properties
+        this.projectsService.update(uid, { projects });
+        this.arrayProjects = projects;
+      }
+    }
+
+      printProjects(): void {
+        console.log('printing projects',this.arrayProjects)
       }
 
       getUsers(): any {

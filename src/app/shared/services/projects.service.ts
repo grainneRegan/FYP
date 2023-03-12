@@ -32,7 +32,7 @@ export class ProjectsService {
   }
 
   update(id: string, data: any): Promise<void> {
-    console.log("in update, id: ", id, "email: ", "data")
+    console.log("in update, id: ", id, "email: ", data)
     return this.usersRef.doc(id).update(data);
   }
 

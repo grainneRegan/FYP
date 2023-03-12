@@ -1,30 +1,124 @@
-<div class="main">
-  <h1>My To Do List</h1>
-  <h2>Projects</h2>
 
-<!--  <ul>-->
-<!--    <li *ngFor="let item of items">Project: {{item.projectName}} : {{item.description}} due date: {{item.date}} </li>-->
-<!--  </ul>-->
 
-  <app-user-operations></app-user-operations>>
+<!-- Get all users -->
+<div class="list row">
+  <div class="col-md-6">
+    <h4>Users List</h4>
+    <ul class="list-group">
+      <li
+        class="list-group-item"
+        *ngFor="let project of arrayProjects; let i = index"
+        [class.active]="i == currentIndex"
+        (click)="setActiveUser(project, i)"
+      >
+        {{ project.date }} {{project.completed}} {{project.description}} {{project.projectName}}
+        <ul>
+          <li *ngFor="let task of project.tasks">{{ task.taskName }} {{ task.description }} {{task.completed}}</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-6">
+    <div *ngIf="currentUser2">
+      <app-user-operations
+        (refreshList)="refreshList()"
+        [user]="currentUser2"
+      ></app-user-operations>
+    </div>
 
-  <input
-    #newItem
-    placeholder="add a project name"
-    class="lg-text-input"
-    id="addItemInput" />
+    <div class="main">
+      <h1>My To Do List</h1>
+      <h2>Projects</h2>
 
-  <input
-    #newItem2
-    placeholder="add a project description"
-    class="lg-text-input"
-    id="addItemInput2" />
+      <!--  <ul>-->
+      <!--    <li *ngFor="let item of items">Project: {{item.projectName}} : {{item.description}} due date: {{item.date}} </li>-->
+      <!--  </ul>-->
 
-  <input
-    #newItem3
-    placeholder="add a project due date"
-    class="lg-text-input"
-    id="addItemInput3" />
+      <input
+        #newItem
+        placeholder="add a project name"
+        class="lg-text-input"
+        id="addItemInput" />
 
-  <button class="btn-primary" (click)="addItem(newItem.value, newItem2.value, newItem3.value)">Add</button>
+      <input
+        #newItem2
+        placeholder="add a project description"
+        class="lg-text-input"
+        id="addItemInput2" />
+
+      <input
+        #newItem3
+        placeholder="add a project due date"
+        class="lg-text-input"
+        id="addItemInput3" />
+
+      <button class="btn-primary" (click)="addProject(newItem.value, newItem2.value, newItem3.value)">Add</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <h1>My To Do List</h1>
+    <h2>Projects</h2>
+
+    <!--  <ul>-->
+    <!--    <li *ngFor="let item of items">Project: {{item.projectName}} : {{item.description}} due date: {{item.date}} </li>-->
+    <!--  </ul>-->
+
+    <input
+      #newTaskProjectName
+      placeholder="add a project name"
+      class="lg-text-input"
+      id="addTaskInput" />
+
+    <input
+      #newTaskName
+      placeholder="add a taskName"
+      class="lg-text-input"
+      id="addTaskInput2" />
+
+    <input
+      #newTaskDescription
+      placeholder="add a description"
+      class="lg-text-input"
+      id="addTaskInput3" />
+
+    <button class="btn-primary" (click)="addTask(newTaskProjectName.value, newTaskName.value, newTaskDescription.value)">Add Task</button>
+
+  </div>
 </div>
+
+
+
+
+
+
+<!--<div class="main">-->
+<!--  <h1>My To Do List</h1>-->
+<!--  <h2>Projects</h2>-->
+
+<!--&lt;!&ndash;  <ul>&ndash;&gt;-->
+<!--&lt;!&ndash;    <li *ngFor="let item of items">Project: {{item.projectName}} : {{item.description}} due date: {{item.date}} </li>&ndash;&gt;-->
+<!--&lt;!&ndash;  </ul>&ndash;&gt;-->
+
+<!--  <app-user-operations></app-user-operations>>-->
+
+<!--  <input-->
+<!--    #newItem-->
+<!--    placeholder="add a project name"-->
+<!--    class="lg-text-input"-->
+<!--    id="addItemInput" />-->
+
+<!--  <input-->
+<!--    #newItem2-->
+<!--    placeholder="add a project description"-->
+<!--    class="lg-text-input"-->
+<!--    id="addItemInput2" />-->
+
+<!--  <input-->
+<!--    #newItem3-->
+<!--    placeholder="add a project due date"-->
+<!--    class="lg-text-input"-->
+<!--    id="addItemInput3" />-->
+
+<!--  <button class="btn-primary" (click)="addItem(newItem.value, newItem2.value, newItem3.value)">Add</button>-->
+<!--</div>-->

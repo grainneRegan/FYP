@@ -4,4 +4,5 @@ export interface Projects {
   description?: string;
   dueDate?: string;
   completed?: boolean;
+  tasks?: any;
 }
