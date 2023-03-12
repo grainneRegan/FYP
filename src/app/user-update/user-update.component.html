@@ -1,0 +1,90 @@
+<div *ngIf="currentUser" class="edit-form">
+  <h1>Update User Email</h1>
+
+  <div class="submit-form">
+    <div *ngIf="!submitted">
+      <div class="form-group">
+        <div class="form-group">
+          <label for="email">New Email:</label>
+          <input type="email" class="form-control" id="email" [(ngModel)]="email" name="email" required>
+        </div>
+
+        <button (click)="updateEmail(email)" class="btn btn-success">Update Email</button>
+
+        <button (click)="deleteUser()" class="btn btn-success">Delete</button>
+      </div>
+    </div>
+  </div>
+
+
+  <button (click)="deleteUser()" class="btn btn-success">
+    Delete
+  </button>
+  <p *ngIf="message">{{ message }}</p>
+
+
+
+  <!--  <h4>User</h4>-->
+<!--  <form>-->
+<!--    <div class="form-group">-->
+<!--      <label for="email">Email</label>-->
+<!--      <input-->
+<!--        type="text"-->
+<!--        class="form-control"-->
+<!--        id="email"-->
+<!--        [(ngModel)]="currentUser.email"-->
+<!--        name="email"-->
+<!--      />-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <label for="uid">Uid</label>-->
+<!--      <input-->
+<!--        type="text"-->
+<!--        class="form-control"-->
+<!--        id="uid"-->
+<!--        [(ngModel)]="currentUser.uid"-->
+<!--        name="uid"-->
+<!--      />-->
+<!--    </div>-->
+
+<!--    <div class="form-group">-->
+<!--      <label for="email">Email</label>-->
+<!--      <input-->
+<!--        type="text"-->
+<!--        class="form-control"-->
+<!--        id="email"-->
+<!--        [(ngModel)]="email"-->
+<!--        name="email"-->
+<!--      />-->
+<!--    </div>-->
+<!--  </form>-->
+
+<!--  <button-->
+<!--    class="badge badge-primary mr-2"-->
+<!--    *ngIf="currentTutorial.published"-->
+<!--    (click)="updatePublished(false)"-->
+<!--  >-->
+<!--    UnPublish-->
+<!--  </button>-->
+<!--  <button-->
+<!--    *ngIf="!currentTutorial.published"-->
+<!--    class="badge badge-primary mr-2"-->
+<!--    (click)="updatePublished(true)"-->
+<!--  >-->
+<!--    Publish-->
+<!--  </button>-->
+
+<!--  <button class="badge badge-danger mr-2" (click)="deleteTutorial()">-->
+<!--    Delete-->
+<!--  </button>-->
+
+<!--  <button type="submit" class="badge badge-success" (click)="updateTutorial()">-->
+<!--    Update-->
+<!--  </button>-->
+<!--  <p>{{ message }}</p>-->
+<!--</div>-->
+
+<!--<div *ngIf="!currentTutorial">-->
+<!--  <br />-->
+<!--  <p>Cannot access this Tutorial...</p>-->
+</div>

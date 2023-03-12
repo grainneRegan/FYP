@@ -7,6 +7,8 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
+
+import { Projects } from '../services/projects'
 @Injectable({
   providedIn: 'root',
 })
@@ -36,7 +38,7 @@ export class AuthService {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
-        this.SetUserData(result.user);
+        this.SetUserData2(result.user);
         this.afAuth.authState.subscribe((user) => {
           if (user) {
             console.log("hello")
@@ -57,10 +59,8 @@ export class AuthService {
         up and returns promise */
         //this.SendVerificationMail();
         this.SetUserData(result.user);
-        console.log("User: ");
         this.afAuth.authState.subscribe((user) => {
           if (user) {
-            console.log("User2: ");
             this.router.navigate(['home-component']);
           }
         });
@@ -120,18 +120,35 @@ export class AuthService {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );
+    const task = {taskName:'', description: '', completed: null}
+    const project = {projectName: '', description: '', date: '', completed: null, tasks: [task]}
     const userData: User = {
       uid: user.uid,
       email: user.email,
-//       displayName: user.displayName,
-//       photoURL: user.photoURL,
-//       emailVerified: user.emailVerified,
+      projects: [project],
+      displayName: '',
     };
     console.log("Here");
     return userRef.set(userData, {
       merge: true,
     });
   }
+
+  SetUserData2(user: any) {
+      const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+        `users/${user.uid}`
+      );
+      const userData: User = {
+        uid: user.uid,
+        email: user.email,
+        //projects: [project],
+        displayName: '',
+      };
+      console.log("Here");
+      return userRef.set(userData, {
+        merge: true,
+      });
+    }
   // Sign out
   SignOut() {
     return this.afAuth.signOut().then(() => {
