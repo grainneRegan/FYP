@@ -9,7 +9,6 @@ import { AuthService } from '../shared/services/auth.service';
 import { Projects} from "../shared/services/projects";
 import { Tasks } from '../shared/services/task';
 
-
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
@@ -25,6 +24,10 @@ export class ProjectListComponent implements OnInit {
     projects: any;
     public arrayProjects: any[] = [];
     tasks: any[] = [];
+    isPopupVisible = false;
+    name = '';
+    description = '';
+
 
  constructor(private projectsService: ProjectsService, public authService: AuthService){ }
 
@@ -43,6 +46,17 @@ export class ProjectListComponent implements OnInit {
      this.currentIndex = -1;
      this.retrieveProjects();
    }
+
+   closePopup() {
+       this.isPopupVisible = false;
+       this.name = '';
+       this.description = '';
+     }
+
+    showPopup() {
+        this.isPopupVisible = true;
+        console.log('hello')
+      }
 
      retrieveProjects(): void {
        const user2 = localStorage.getItem('user');
@@ -66,6 +80,7 @@ export class ProjectListComponent implements OnInit {
          });
        }
      }
+
 
      addProject(projectName: string, description: string, date: string) {
        const user2 = this.auth.currentUser;

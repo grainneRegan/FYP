@@ -40,7 +40,6 @@ export class UserOperationsComponent implements OnInit {
     refreshList(): void {
         this.currentUser2 = undefined;
         this.currentIndex = -1;
-        this.retrieveUsers();
         this.printProjects();
       }
 

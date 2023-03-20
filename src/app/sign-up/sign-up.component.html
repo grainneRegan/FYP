@@ -18,11 +18,15 @@
                   <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" #userEmail required>
                 </div>
                 <div class="form-floating mb-3">
+                  <label for="floatingInput">Username</label>
+                  <input type="text" class="form-control" id="floatingName" placeholder="userName" #userName required>
+                </div>
+                <div class="form-floating mb-3">
                   <label for="floatingPassword">Password</label>
                   <input type="password" class="form-control" id="floatingPassword" placeholder="Password" #userPwd required>
                 </div>
                 <div class="formGroup">
-                  <input type="button" class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" value="Sign Up" (click)="authService.SignUp(userEmail.value, userPwd.value)">
+                  <input type="button" class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" value="Sign Up" (click)="authService.SignUp(userEmail.value, userPwd.value, userName.value)">
                 </div>
 
                 <div class="d-grid">

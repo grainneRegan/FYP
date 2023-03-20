@@ -51,14 +51,14 @@ export class AuthService {
       });
   }
   // Sign up with email/password
-  SignUp(email: string, password: string) {
+  SignUp(email: string, password: string, userName: string) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
         /* Call the SendVerificaitonMail() function when new user sign
         up and returns promise */
         //this.SendVerificationMail();
-        this.SetUserData(result.user);
+        this.SetUserData(result.user, userName);
         this.afAuth.authState.subscribe((user) => {
           if (user) {
             this.router.navigate(['home-component']);
@@ -96,27 +96,27 @@ export class AuthService {
 
   }
   // Sign in with Google
-  GoogleAuth() {
-    return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-      this.router.navigate(['home-component']);
-    });
-  }
+//   GoogleAuth() {
+//     return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
+//       this.router.navigate(['home-component']);
+//     });
+//   }
   // Auth logic to run auth providers
-  AuthLogin(provider: any) {
-    return this.afAuth
-      .signInWithPopup(provider)
-      .then((result) => {
-        this.router.navigate(['home-component']);
-        this.SetUserData(result.user);
-      })
-      .catch((error) => {
-        window.alert(error);
-      });
-  }
+//   AuthLogin(provider: any) {
+//     return this.afAuth
+//       .signInWithPopup(provider)
+//       .then((result) => {
+//         this.router.navigate(['home-component']);
+//         this.SetUserData(result.user);
+//       })
+//       .catch((error) => {
+//         window.alert(error);
+//       });
+//   }
   /* Setting up user data when sign in with username/password,
   sign up with username/password and sign in with social auth
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
-  SetUserData(user: any) {
+  SetUserData(user: any, userName: string) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );
@@ -125,7 +125,7 @@ export class AuthService {
       uid: user.uid,
       email: user.email,
       projects: [project],
-      displayName: '',
+      displayName: userName,
     };
     console.log("Here");
     return userRef.set(userData, {

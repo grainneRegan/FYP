@@ -7,6 +7,7 @@ import { LogInComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { ProjectListComponent } from './project-list/project-list.component'
+import { ProfileComponent } from './profile/profile.component'
 import { UserOperationsComponent } from './user-operations/user-operations.component'
 import { AuthGuard } from './shared/guard/auth.guard';
 
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'verify-email-address', component: VerifyEmailComponent },
   { path: 'project-list', component: ProjectListComponent, canActivate: [AuthGuard] },
   { path: 'user-operations', component: UserOperationsComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: 'home-component', component: HomeComponent, canActivate: [AuthGuard]},
   //{ path: '**', component: LoginComponent},
 ]; // sets up routes constant where you define your routes

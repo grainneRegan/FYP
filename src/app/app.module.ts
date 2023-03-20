@@ -33,6 +33,7 @@ import { UserOperationsComponent } from './user-operations/user-operations.compo
 
 import { FormsModule } from '@angular/forms';
 import { UserUpdateComponent } from './user-update/user-update.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -44,17 +45,12 @@ import { UserUpdateComponent } from './user-update/user-update.component';
     VerifyEmailComponent,
     ProjectListComponent,
     UserOperationsComponent,
-    UserUpdateComponent
+    UserUpdateComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-//     provideFirebaseApp(() => initializeApp(environment.firebase)),
-//     provideAuth(() => getAuth()),
-//     provideDatabase(() => getDatabase()),
-//     provideFirestore(() => getFirestore()),
-//     provideFunctions(() => getFunctions()),
-//     provideStorage(() => getStorage()),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
