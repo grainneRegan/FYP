@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'register-user', component: SignUpComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'verify-email-address', component: VerifyEmailComponent },
-  { path: 'project-list', component: ProjectListComponent },
+  { path: 'project-list', component: ProjectListComponent, canActivate: [AuthGuard] },
   { path: 'user-operations', component: UserOperationsComponent },
   { path: 'home-component', component: HomeComponent, canActivate: [AuthGuard]},
   //{ path: '**', component: LoginComponent},
