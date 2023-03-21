@@ -34,6 +34,7 @@ import { UserOperationsComponent } from './user-operations/user-operations.compo
 import { FormsModule } from '@angular/forms';
 import { UserUpdateComponent } from './user-update/user-update.component';
 import { ProfileComponent } from './profile/profile.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { ProfileComponent } from './profile/profile.component';
     AngularFireDatabaseModule,
     AppRoutingModule,
     FullCalendarModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

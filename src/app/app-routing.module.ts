@@ -19,9 +19,9 @@ const routes: Routes = [
   { path: 'verify-email-address', component: VerifyEmailComponent },
   { path: 'project-list', component: ProjectListComponent, canActivate: [AuthGuard] },
   { path: 'user-operations', component: UserOperationsComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'home-component', component: HomeComponent, canActivate: [AuthGuard]},
-  //{ path: '**', component: LoginComponent},
+  { path: '**', component: LogInComponent},
 ]; // sets up routes constant where you define your routes
 
 @NgModule({
