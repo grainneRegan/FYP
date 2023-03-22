@@ -218,19 +218,16 @@
                 <button type="button" class="btn btn-default" (click)="showPopup()">
                   <i class="bi bi-plus-circle" style="font-size: 20px;"></i>
                 </button>
-                <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown button
+                <div ngbDropdown class="d-inline-block">
+                  <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                    <i class="bi bi-funnel" style="font-size: 20px;"></i>
                   </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem type="button" class="btn btn-default" (click)="sortTasksByDueDate()">Sort By Due Date</button>
+                    <button ngbDropdownItem type="button" class="btn btn-default" (click)="sortTasksByCompleted()">Sort By Completed</button>
+                    <button ngbDropdownItem type="button" class="btn btn-default" (click)="sortTasksByImportance()">Sort By Importance</button>
                   </div>
                 </div>
-                <button type="button" class="btn btn-default" (click)="sortTasksByDueDate()">
-                  <i class="bi bi-funnel" style="font-size: 20px;"></i>
-                </button>
               </div>
             </div>
           </div>
@@ -292,16 +289,16 @@
 </div>
 
 
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown button
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
-  </div>
-</div>
+<!--    <div ngbDropdown class="d-inline-block">-->
+<!--      <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>-->
+<!--        <i class="bi bi-funnel" style="font-size: 20px;"></i>-->
+<!--      </button>-->
+<!--      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">-->
+<!--        <button ngbDropdownItem type="button" class="btn btn-default" (click)="sortTasksByDueDate">Sort By Due Date</button>-->
+<!--        <button ngbDropdownItem type="button" class="btn btn-default" (click)="sortTasksByCompleted">Sort By Completed</button>-->
+<!--        <button ngbDropdownItem type="button" class="btn btn-default" (click)="sortTasksByImportance">Sort By Importance</button>-->
+<!--      </div>-->
+<!--    </div>-->
 
 <!--<div class="dropdown d-inline-block">-->
 <!--  <button class="btn btn-default dropdown-toggle" type="button" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->

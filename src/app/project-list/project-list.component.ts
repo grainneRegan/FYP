@@ -10,12 +10,14 @@ import { Projects} from "../shared/services/projects";
 import { Tasks } from '../shared/services/task';
 import * as confetti from 'canvas-confetti';
 import { NgbDateStruct, NgbCalendar, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
-  styleUrls: ['./project-list.component.css']
+  styleUrls: ['./project-list.component.css'],
+  providers: [NgbDropdownModule]
 })
 export class ProjectListComponent implements OnInit {
   @Input() user: User = new User();
@@ -80,14 +82,17 @@ export class ProjectListComponent implements OnInit {
 
       sortTasksByImportance() {
         const flaggedFirst = this.arrayProjects.sort((a,b) => b.flagged - a.flagged);
+        console.log('sort by importance', this.arrayProjects)
       }
 
       sortTasksByCompleted() {
         const flaggedFirst = this.arrayProjects.sort((a,b) => a.flagged - b.flagged);
+        console.log('sort by completed', this.arrayProjects)
       }
 
       sortTasksByDueDate() {
         const flaggedFirst = this.arrayProjects.sort((a, b) => this.convertDates(a.date, b.date));
+        console.log('sort by date', this.arrayProjects)
       }
 
       convertDates(a: string, b: string) {
