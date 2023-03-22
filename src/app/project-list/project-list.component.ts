@@ -68,6 +68,7 @@ export class ProjectListComponent implements OnInit {
       }
 
       closeSubTask2Popup() {
+         console.log('close');
          this.isSubPopup2Visible = false;
        }
 
