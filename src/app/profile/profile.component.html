@@ -25,7 +25,7 @@
         <h5>Tasks: </h5>
         <h6>Number of tasks: <span class="email" style="font-size:0.8em">{{numberTasks}}</span></h6>
         <h6>Number of completed tasks: <span class="email" style="font-size:0.8em">{{numberCompletedTasks}}</span></h6>
-        <div *ngif="numberTasks !== 0">
+        <div *ngIf="numberTasks !== 0">
           <div class="progress">
             <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {{percentageCompleted}}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" [style.backgroundColor]="'pink'">{{percentageCompleted}}% tasks completed</div>
           </div>
