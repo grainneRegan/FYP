@@ -1,4 +1,3 @@
-
 .topnav {
   background-color: #75a99c;
   overflow: hidden;
@@ -21,8 +20,4 @@
 .topnav a.active {
   background-color: #eof3e1;
   color: 233227;
-}
-
-.input-group-append {
-  cursor: pointer;
 }
