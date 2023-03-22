@@ -98,9 +98,6 @@ export class UserOperationsComponent implements OnInit {
       setActiveUser(user: User, index: number): void {
         this.currentUser2 = user;
         this.currentIndex = index;
-//         if(id.equals(uid){
-//           projects = saveData(id, projects);
-//         }
       }
 
 //       saveData(uid: string, projects: any): any{

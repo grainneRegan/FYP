@@ -40,6 +40,7 @@ export class ProjectListComponent implements OnInit {
    this.onAuthStateChanged();
    this.retrieveProjects();
    console.log('retrieveProjects called');
+   this.testItem();
    //this.retrieveTasks();
  }
 
@@ -177,6 +178,16 @@ export class ProjectListComponent implements OnInit {
             }
           }
         }
+
+    testItem() {
+     const user2 = this.auth.currentUser;
+     const uid = user2?.uid;
+     console.log("this.currentUser.uid", uid )
+
+     if (uid) {
+      console.log('valid user')
+     }
+   }
 
      deleteTask(projectName: string) {
        const user2 = this.auth.currentUser;

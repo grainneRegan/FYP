@@ -7,6 +7,8 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
+import { getAuth, deleteUser } from 'firebase/auth';
+
 
 import { Projects } from '../services/projects'
 @Injectable({
@@ -33,6 +35,17 @@ export class AuthService {
       }
     });
   }
+
+  Delete(user: any) {
+   console.log(user)
+    user.delete().then(() => {
+      console.log(' deleted');
+    }).catch((error: Error) => {
+      console.log('not deleted');
+    });
+  }
+
+
   // Sign in with email/password
   SignIn(email: string, password: string) {
     return this.afAuth
@@ -139,15 +152,14 @@ export class AuthService {
       );
       const userData: User = {
         uid: user.uid,
-        email: user.email,
-        //projects: [project],
-        displayName: '',
+        email: user.email
       };
       console.log("Here");
       return userRef.set(userData, {
         merge: true,
       });
     }
+
   // Sign out
   SignOut() {
     return this.afAuth.signOut().then(() => {
