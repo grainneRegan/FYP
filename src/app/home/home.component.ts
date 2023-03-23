@@ -27,8 +27,9 @@ export class HomeComponent implements OnInit {
   @ViewChild('calendar') calendarComponent?: FullCalendarComponent;
 
   public arrayProjects: any[] = [];
-
+  public taskArray: any[] = [];
   selectedProject: string = '';
+  taskSelected = false;
 
   calendarVisible = true;
   private dbPath = '/Events';
@@ -79,6 +80,8 @@ export class HomeComponent implements OnInit {
             });
           });
       });
+    this.getTasks();
+    console.log('tasks', this.taskArray);
   }
 
   populateCalendar() {
@@ -104,6 +107,8 @@ export class HomeComponent implements OnInit {
                             };
                             console.log('hello');
                             this.calendarOptionsUpdated = true;
+                            this.getTasks();
+                            console.log('tasks', this.taskArray);
   }
 
   updateCalendar() {
@@ -171,6 +176,12 @@ export class HomeComponent implements OnInit {
 
   handleEventClick(clickInfo: EventClickArg) {
     if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+      for(let eventObject of this.arrayEvents){
+        if(eventObject.event.title == clickInfo.event.title){
+          const id = eventObject.id;
+          this.eventsRef.doc(id).delete();
+        }
+      }
       clickInfo.event.remove();
     }
   }
@@ -202,6 +213,14 @@ export class HomeComponent implements OnInit {
      }
      this.formatEvents();
    }
+
+  getTasks() {
+    for(let project of this.arrayProjects){
+      for(let task of project.tasks){
+        this.taskArray.push(task);
+      }
+    }
+  }
 
    retrieveEvents(): Promise<void> {
      return new Promise<void>((resolve) => {
