@@ -15,7 +15,7 @@
 </div>
 
 <div *ngIf="calendarVisible">
-  <full-calendar #calendar [options]="calendarOptions" ></full-calendar>
+  <full-calendar #calendar [options]="calendarOptions" *ngIf="calendarOptionsUpdated"></full-calendar>
 </div>
 
 
