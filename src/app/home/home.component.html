@@ -7,16 +7,39 @@
   <a (click)="authService.SignOut()">Sign Out</a>
 </div>
 
+<div class="row justify-content-center">
+  <div class="col-md-2">
+    <div class="card mx-auto my-4">
+      <div class="card-header">
+        <h5> Schedule Task </h5>
+      </div>
+      <div class="card-body">
+        <select [(ngModel)]="selectedProject" (ngModelChange)="taskSelected=true">
+          <option value="" disabled selected>Select a task</option>
+          <option *ngFor="let task of taskArray" [value]="task.taskName">{{ task.taskName }}</option>
+        </select>
+        <br>
+        <br>
+        <div *ngIf="taskSelected">
+          <h6>Click date on calendar to schedule ...</h6>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<div>
-  <select [(ngModel)]="selectedProject">
-    <option *ngFor="let project of arrayProjects" [value]="project.projectName">{{ project.projectName }}</option>
-  </select>
+  <div class="col-md-9">
+    <div class="card mx-auto my-4 w-95">
+      <div class="card-body">
+        <div *ngIf="calendarVisible">
+          <full-calendar #calendar [options]="calendarOptions" *ngIf="calendarOptionsUpdated"></full-calendar>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div *ngIf="calendarVisible">
-  <full-calendar #calendar [options]="calendarOptions" *ngIf="calendarOptionsUpdated"></full-calendar>
-</div>
+
+
 
 
 <button (click)="handleCalendarToggle()">Toggle Calendar</button>
