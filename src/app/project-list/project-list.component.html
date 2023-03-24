@@ -6,7 +6,8 @@
 <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>-->
 
 <div class="topnav">
-  <a routerLink="/home-component">Calender</a>
+  <a style="font-size: 35px;" >scheduleIt</a>
+  <a routerLink="/home-component" >Calender</a>
   <a class="active" >Projects</a>
   <a routerLink="/profile">Profile</a>
   <a (click)="authService.SignOut()">Sign Out</a>
@@ -26,9 +27,11 @@
             </div>
             <div class="col-2 d-flex justify-content-end">
               <div class="btn-group">
-                <button type="button" class="btn btn-default" (click)="closePopup()">
-                  <i class="bi bi-x-lg" style="font-size: 17px;"></i>
-                </button>
+                <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="Close">
+                  <button type="button" class="btn btn-default" (click)="closePopup()">
+                    <i class="bi bi-x-lg" style="font-size: 17px;"></i>
+                  </button>
+                </span>
               </div>
             </div>
           </div>
@@ -68,12 +71,14 @@
                       ngbDatepicker
                       #d="ngbDatepicker"
                     />
-                    <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="Choose Date">
+                      <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
+                    </span>
                   </div>
                 </div>
               </div>
 
-              <button type="button" class="btn btn-primary" (click)="addProject(newItem.value, newItem2.value, newItem3.value)">Add Task</button>
+              <button type="button" class="btn btn-primary btn-pink" (click)="addProject(newItem.value, newItem2.value, newItem3.value)">Add Task</button>
             </form>
           </div>
         </div>
@@ -89,9 +94,11 @@
             </div>
             <div class="col-2 d-flex justify-content-end">
               <div class="btn-group">
-                <button type="button" class="btn btn-default" (click)="closeSubTaskPopup()">
-                  <i class="bi bi-x-lg" style="font-size: 17px;"></i>
-                </button>
+                <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="Close">
+                  <button type="button" class="btn btn-default" (click)="closeSubTaskPopup()">
+                    <i class="bi bi-x-lg" style="font-size: 17px;"></i>
+                  </button>
+                </span>
               </div>
             </div>
           </div>
@@ -119,25 +126,7 @@
                   id="addItemInput5" />
               </div>
 
-              <div class="mb-3">
-                <label for="addItemInput3" class="form-label">Due Date</label>
-                <div class="mb-3">
-                  <div class="input-group">
-                    <input
-                      #newItem3
-                      class="form-control"
-                      placeholder="yyyy-mm-dd"
-                      name="dp"
-                      [(ngModel)]="model"
-                      ngbDatepicker
-                      #d="ngbDatepicker"
-                    />
-                    <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
-                  </div>
-                </div>
-              </div>
-
-              <button type="button" class="btn btn-primary" (click)="addTask(newItem.value, newItem2.value, newItem3.value)">Add Sub Task</button>
+              <button type="button" class="btn btn-primary btn-pink" (click)="addTask(newItem.value, newItem2.value)">Add Sub Task</button>
             </form>
           </div>
         </div>
@@ -153,9 +142,11 @@
             </div>
             <div class="col-2 d-flex justify-content-end">
               <div class="btn-group">
-                <button type="button" class="btn btn-default" (click)="closeSubTask2Popup()">
-                  <i class="bi bi-x-lg" style="font-size: 17px;"></i>
-                </button>
+                <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="Close">
+                  <button type="button" class="btn btn-default" (click)="closeSubTask2Popup()">
+                    <i class="bi bi-x-lg" style="font-size: 17px;"></i>
+                  </button>
+                </span>
               </div>
             </div>
           </div>
@@ -183,22 +174,7 @@
                   id="addItemInput8" />
               </div>
 
-              <div class="mb-3">
-                <div class="input-group">
-                  <input
-                    #newItem3
-                    class="form-control"
-                    placeholder="yyyy-mm-dd"
-                    name="dp"
-                    [(ngModel)]="model"
-                    ngbDatepicker
-                    #d="ngbDatepicker"
-                  />
-                  <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
-                </div>
-              </div>
-
-              <button type="button" class="btn btn-primary" (click)="addTask(newItem.value, newItem2.value, newItem3.value)">Add Sub Task</button>
+              <button type="button" class="btn btn-primary btn-pink" (click)="addTask(newItem.value, newItem2.value)">Add Sub Task</button>
             </form>
           </div>
         </div>
@@ -215,13 +191,17 @@
             </div>
             <div class="col-2 d-flex justify-content-end">
               <div class="btn-group">
-                <button type="button" class="btn btn-default" (click)="showPopup()">
-                  <i class="bi bi-plus-circle" style="font-size: 20px;"></i>
-                </button>
-                <div ngbDropdown class="d-inline-block">
-                  <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
-                    <i class="bi bi-funnel" style="font-size: 20px;"></i>
+                <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="Add Task">
+                  <button type="button" class="btn btn-default" (click)="showPopup()">
+                    <i class="bi bi-plus-circle" style="font-size: 20px;"></i>
                   </button>
+                </span>
+                <div ngbDropdown class="d-inline-block">
+                  <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="Sort List">
+                    <button type="button" class="btn btn-default" id="dropdownBasic1" ngbDropdownToggle>
+                      <i class="bi bi-funnel" style="font-size: 20px;"></i>
+                    </button>
+                  </span>
                   <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                     <button ngbDropdownItem type="button" class="btn btn-default" (click)="sortTasksByDueDate()">Sort By Due Date</button>
                     <button ngbDropdownItem type="button" class="btn btn-default" (click)="sortTasksByCompleted()">Sort By Completed</button>
@@ -238,47 +218,68 @@
             <ul class="list-group">
               <!-- My Tasks card body content -->
               <li class="list-group-item" *ngFor="let project of arrayProjects.slice(1); let i = index" (click)="setActiveUser(project, i)">
-                <div class="row align-items-center justify-content-between" style="color: pink">
+                <div class="row align-items-center justify-content-between" >
                   <div class="col-8">
-                    <h5>{{project.projectName}}</h5>
+                    <h5 style="color: #75a99c; font-weight: 600;">{{project.projectName}}<span class = 'project-heading'>(due: {{project.date}})</span></h5>
                   </div>
                   <div class="col-4 d-flex justify-content-end">
                     <div class="btn-group">
-                      <button type="button" class="btn btn-default" (click)="showSubTask2Popup(project.projectName)">
-                        <i class="bi bi-plus-circle" style="font-size: 15px;"></i>
-                      </button>
-                      <div *ngIf="!project.flagged; else flagged">
-                        <button type="button" class="btn btn-default" (click)="updateTaskFlaggedStatus(project.projectName, true)">
-                          <i class="bi bi-star" style="font-size: 15px;"></i>
+                      <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="Add Sub Task">
+                        <button type="button" class="btn btn-default" (click)="showSubTask2Popup(project.projectName)">
+                          <i class="bi bi-plus-circle" style="font-size: 15px;"></i>
                         </button>
+                      </span>
+                      <div *ngIf="!project.flagged; else flagged">
+                        <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="Important">
+                          <button type="button" class="btn btn-default" (click)="updateTaskFlaggedStatus(project.projectName, true)">
+                            <i class="bi bi-star" style="font-size: 15px;"></i>
+                          </button>
+                        </span>
                       </div>
                       <ng-template #flagged>
-                        <button type="button" class="btn btn-default" (click)="updateTaskFlaggedStatus(project.projectName, false)">
-                          <i class="bi bi-star" style="font-size: 15px; color: pink"></i>
-                        </button>
+                        <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="Important">
+                          <button type="button" class="btn btn-default" (click)="updateTaskFlaggedStatus(project.projectName, false)">
+                            <i class="bi bi-star" style="font-size: 15px; color: pink"></i>
+                          </button>
+                        </span>
                       </ng-template>
                       <div *ngIf="!project.completed; else completed">
                         <div class="button-wrapper">
-                          <button type="button" class="btn btn-default confetti-button" (click)="updateTaskCompletedStatus(project.projectName, true); confetti()">
-                            <i class="bi bi-check2-circle" style="font-size: 15px;"></i>
-                          </button>
+                          <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="Mark as Completed">
+                            <button type="button" class="btn btn-default confetti-button" (click)="updateTaskCompletedStatus(project.projectName, true); confetti()">
+                              <i class="bi bi-check2-circle" style="font-size: 15px;"></i>
+                            </button>
+                          </span>
                         </div>
                       </div>
                       <ng-template #completed>
-                        <button type="button" class="btn btn-default" (click)="updateTaskCompletedStatus(project.projectName, false)">
-                          <i class="bi bi-check2-circle" style="font-size: 15px; color: pink"></i>
-                        </button>
+                        <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="Mark as Completed">
+                          <button type="button" class="btn btn-default" (click)="updateTaskCompletedStatus(project.projectName, false)">
+                            <i class="bi bi-check2-circle" style="font-size: 15px; color: pink"></i>
+                          </button>
+                        </span>
                       </ng-template>
-                      <button type="button" class="btn btn-default" (click)="deleteTask(project.projectName)">
-                        <i class="bi bi-trash3" style="font-size: 15px;"></i>
-                      </button>
+                      <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="Delete">
+                        <button type="button" class="btn btn-default" (click)="deleteTask(project.projectName)">
+                          <i class="bi bi-trash3" style="font-size: 15px;"></i>
+                        </button>
+                      </span>
                     </div>
                   </div>
                 </div>
                 {{project.description}}
                 <ul>
-                  <li *ngFor="let task of project.tasks">{{ task.taskName }} {{ task.description }}</li>
+                  <li *ngFor="let task of project.tasks | orderBy:['completed', 'flagged']">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" [checked]="task.completed" (change)="updateTask(task, project.projectName)">
+                      <label class="form-check-label" [class.completed-task]="task.completed">
+                        {{ task.taskName }}
+                        <span class="task-description">{{ task.description }}</span>
+                      </label>
+                    </div>
+                  </li>
                 </ul>
+
               </li>
             </ul>
           </div>

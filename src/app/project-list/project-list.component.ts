@@ -12,6 +12,7 @@ import * as confetti from 'canvas-confetti';
 import { NgbDateStruct, NgbCalendar, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { JsonPipe } from '@angular/common';
+import {PipeService} from "../shared/services/pipe.service";
 
 @Component({
   selector: 'app-project-list',
@@ -86,7 +87,7 @@ export class ProjectListComponent implements OnInit {
       }
 
       sortTasksByCompleted() {
-        const flaggedFirst = this.arrayProjects.sort((a,b) => a.flagged - b.flagged);
+        const flaggedFirst = this.arrayProjects.sort((a,b) => a.completed - b.completed);
         console.log('sort by completed', this.arrayProjects)
       }
 
@@ -128,9 +129,17 @@ export class ProjectListComponent implements OnInit {
      addProject(projectName: string, description: string, date: string) {
        const user2 = this.auth.currentUser;
        const uid = user2?.uid;
-       console.log("this.currentUser.uid", uid )
+       console.log("this.currentUser.uid", uid)
 
        if (uid) {
+         const currentDate = new Date();
+         const selectedDate = new Date(date);
+
+         if (selectedDate.getTime() < currentDate.getTime()) {
+           alert("The due date must be a date in the future.");
+           return;
+         }
+
          // Retrieve the projects only once, outside of the subscription
          const newProject = { projectName, description, date, completed: false , flagged: false, tasks: []};
          const projects = [...this.arrayProjects, newProject]; // create a new array with the new project added
@@ -143,6 +152,7 @@ export class ProjectListComponent implements OnInit {
          this.closePopup();
        }
      }
+
 
     updateTaskCompletedStatus(projectName: string, completed: boolean) {
       const user = this.auth.currentUser;
@@ -165,24 +175,24 @@ export class ProjectListComponent implements OnInit {
     }
 
     updateTaskFlaggedStatus(projectName: string, flagged: boolean) {
-          const user = this.auth.currentUser;
-          const uid = user?.uid;
+      const user = this.auth.currentUser;
+      const uid = user?.uid;
 
-          if (uid) {
-            // Find the project with the given name
-            const projectIndex = this.arrayProjects.findIndex(project => project.projectName == projectName);
+      if (uid) {
+        // Find the project with the given name
+        const projectIndex = this.arrayProjects.findIndex(project => project.projectName == projectName);
 
-            if (projectIndex !== -1) {
-              // Update the completed field of the project
-              const updatedProject = { ...this.arrayProjects[projectIndex], flagged: flagged };
-              const updatedArrayProjects = [...this.arrayProjects.slice(0, projectIndex), updatedProject, ...this.arrayProjects.slice(projectIndex + 1)];
+        if (projectIndex !== -1) {
+          // Update the completed field of the project
+          const updatedProject = { ...this.arrayProjects[projectIndex], flagged: flagged };
+          const updatedArrayProjects = [...this.arrayProjects.slice(0, projectIndex), updatedProject, ...this.arrayProjects.slice(projectIndex + 1)];
 
-              // Update the projectsService and arrayProjects properties
-              this.projectsService.update(uid, { projects: updatedArrayProjects });
-              this.arrayProjects = updatedArrayProjects;
-            }
-          }
+          // Update the projectsService and arrayProjects properties
+          this.projectsService.update(uid, { projects: updatedArrayProjects });
+          this.arrayProjects = updatedArrayProjects;
         }
+      }
+    }
 
     testItem() {
      const user2 = this.auth.currentUser;
@@ -218,20 +228,17 @@ export class ProjectListComponent implements OnInit {
      }
 
 
-     addTask(taskName: string, description: string, dueDate: string) {
+     addTask(taskName: string, description: string) {
        const user = this.auth.currentUser;
        const uid = user?.uid;
-       console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", uid )
 
        if (uid) {
          // Find the project with the given name
-         console.log('Here!!!', this.arrayProjects)
          const projectIndex = this.arrayProjects.findIndex(project => project.projectName == this.newProjectName);
          if (projectIndex !== -1) {
            // Add the new task to the project
-           const newTask = { taskName, description, dueDate, completed: false };
-           console.log('new task', newTask);
-           const updatedTasks: { taskName: string, description: string, dueDate: string, completed: boolean }[] = [];
+           const newTask = { taskName, description, completed: false };
+           const updatedTasks: { taskName: string, description: string, completed: boolean }[] = [];
            console.log('updated Tasks', updatedTasks);
             this.arrayProjects[projectIndex].tasks.push(newTask);
 
@@ -243,6 +250,7 @@ export class ProjectListComponent implements OnInit {
             this.projectsService.update(uid, { projects: updatedArrayProjects });
             this.arrayProjects = updatedArrayProjects;
             this.closeSubTaskPopup();
+            this.closeSubTask2Popup();
          }
        }
      }
@@ -267,6 +275,64 @@ export class ProjectListComponent implements OnInit {
        useWorker: true,
      })({ particleCount: 200, spread: 200 });
    }
+
+//    updateTaskCompletedStatus(task: Task) {
+//      task.completed = !task.completed;
+//      const index = this.project.tasks.indexOf(task);
+//      this.project.tasks.splice(index, 1);
+//      if (task.completed) {
+//        this.project.tasks.push(task);
+//      } else {
+//        this.project.tasks.unshift(task);
+//      }
+//      this.projectsService.update(this.project);
+//    }
+
+   updateTask(task: any, projectName: string) {
+     const user2 = this.auth.currentUser;
+     const uid = user2?.uid;
+     let updatedTask: any;
+     console.log("this.currentUser.uid", uid)
+
+     if (uid) {
+       // Find the index of the project
+       const projectIndex = this.arrayProjects.findIndex(project => project.projectName == projectName);
+
+       // Check if the project is found
+       if (projectIndex > -1) {
+         // Find the index of the task in the project's tasks array
+         const taskIndex = this.arrayProjects[projectIndex].tasks.findIndex((t: any) => t.taskName == task.taskName);
+         console.log('got index', taskIndex)
+         // Check if the task is found
+         if (taskIndex > -1) {
+           // Update the completed field of the task
+           const completedStatus = task.completed;
+           console.log('completed status', completedStatus);
+           console.log('task', task);
+           if(completedStatus){
+            updatedTask = { ...this.arrayProjects[projectIndex].tasks[taskIndex], completed: false };
+           } else {
+             updatedTask = { ...this.arrayProjects[projectIndex].tasks[taskIndex], completed: true };
+           }
+           console.log('updated task', updatedTask);
+           const updatedTasks = [...this.arrayProjects[projectIndex].tasks.slice(0, taskIndex), updatedTask, ...this.arrayProjects[projectIndex].tasks.slice(taskIndex + 1)];
+
+           // Update the tasks array of the project
+           const updatedProject = { ...this.arrayProjects[projectIndex], tasks: updatedTasks };
+           const updatedArrayProjects = [...this.arrayProjects.slice(0, projectIndex), updatedProject, ...this.arrayProjects.slice(projectIndex + 1)];
+
+           // Update the projectsService and arrayProjects properties
+           this.projectsService.update(uid, { projects: updatedArrayProjects });
+           this.arrayProjects = updatedArrayProjects;
+         } else {
+           console.log('Task not found:', task.taskName);
+         }
+       } else {
+         console.log('Project not found:', projectName);
+       }
+     }
+   }
+
 }
 
 //   title = 'My Projects';

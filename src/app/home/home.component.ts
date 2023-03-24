@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
     selectMirror: true,
     dayMaxEvents: true,
     events: [],
-
+    eventColor: 'pink',
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this)
@@ -100,7 +100,7 @@ export class HomeComponent implements OnInit {
                               selectMirror: true,
                               dayMaxEvents: true,
                               events: [],
-
+                              eventColor: 'pink',
                               select: this.handleDateSelect.bind(this),
                               eventClick: this.handleEventClick.bind(this),
                               eventsSet: this.handleEvents.bind(this)

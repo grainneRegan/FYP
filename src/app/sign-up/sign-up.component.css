@@ -3,7 +3,7 @@
   }
 
   .bg-image {
-    background-image: url('https://source.unsplash.com/WEQbe2jBg40/600x1200');
+    background-image: url('../../assets/pencils2.jpg');
     background-size: cover;
     background-position: center;
   }
@@ -29,4 +29,17 @@
         background-color: pink;
         height: 80px;
         padding: 10px;
+    }
+
+  .btn-pink {
+      background-color: pink;
+      border-color: pink;
+      color: white;
+    }
+
+  .app-name {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 40px;
     }

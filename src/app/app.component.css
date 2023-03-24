@@ -1,0 +1,13 @@
+
+.btn-pink {
+    background-color: pink;
+    border-color: pink;
+    color: white;
+  }
+
+  .app-name {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 40px;
+  }

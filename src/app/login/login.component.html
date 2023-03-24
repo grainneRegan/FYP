@@ -1,10 +1,10 @@
 <link rel="stylesheet" href=
   "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
-
+<div class="app-name">scheduleIt</div>
 <div class="container-fluid ps-md-0">
   <div class="row g-0">
-    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+    <div class="d-none d-md-flex col-md-4 col-lg-4 bg-image"></div>
     <div class="col-md-8 col-lg-6">
       <div class="login d-flex align-items-center py-5">
         <div class="container">
@@ -14,17 +14,17 @@
                 <h3 class="login-heading mb-4">Welcome back!</h3>
 
                 <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" value="" #userEmail required>
                   <label for="floatingInput">Email address</label>
-                  <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" #userName required>
                 </div>
                 <div class="form-floating mb-3">
+                  <input type="password" class="form-control" id="floatingPassword" placeholder="Password" value="" #userPwd required>
                   <label for="floatingPassword">Password</label>
-                  <input type="password" class="form-control" id="floatingPassword" placeholder="Password" #userPassword required>
                 </div>
                 <div class="formGroup">
-                  <input type="button" class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" value="Log in" (click)="authService.SignIn(userName.value, userPassword.value)">
+                  <input type="button" class="btn btn-lg btn-pink btn-login text-uppercase fw-bold mb-2" value="Log in" (click)="authService.SignIn(userEmail.value, userPwd.value)">
                 </div>
-<!--                  <div class="formGroup">-->
+                <!--                  <div class="formGroup">-->
 <!--                    <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">-->
 <!--                      <i class="fab fa-google-plus-g"></i>-->
 <!--                      Log in with Google-->

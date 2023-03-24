@@ -1,6 +1,8 @@
 .topnav {
   background-color: #75a99c;
   overflow: hidden;
+     display: flex;
+     align-items: center;
 }
 
 .topnav a {
@@ -31,3 +33,4 @@ select {
   font-size: 16px;
   cursor: pointer;
 }
+

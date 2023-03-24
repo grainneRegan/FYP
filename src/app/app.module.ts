@@ -35,6 +35,7 @@ import { FormsModule } from '@angular/forms';
 import { UserUpdateComponent } from './user-update/user-update.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {PipeService} from "./shared/services/pipe.service";
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ProjectListComponent,
     UserOperationsComponent,
     UserUpdateComponent,
-    ProfileComponent
+    ProfileComponent,
+    PipeService
   ],
   imports: [
     BrowserModule,

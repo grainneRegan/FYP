@@ -2,6 +2,8 @@
 .topnav {
   background-color: #75a99c;
   overflow: hidden;
+     display: flex;
+     align-items: center;
 }
 
 .topnav a {
@@ -20,9 +22,56 @@
 
 .topnav a.active {
   background-color: #eof3e1;
-  color: 233227;
-}
+  color: 233227
+ }
 
 .input-group-append {
   cursor: pointer;
+}
+
+
+.btn-pink {
+    background-color: pink;
+    border-color: pink;
+    color: white;
+  }
+
+
+.project-heading {
+  font-size: 0.8rem;
+  font-style: italic;
+  color: black;
+  padding: 10px
+}
+
+
+.completed-task {
+  text-decoration: line-through;
+}
+
+.form-check-input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: pink;
+  margin-right: 10px;
+}
+
+.form-check-input[type="checkbox"]:checked {
+  background-color: pink;
+}
+
+.form-check-label {
+  font-size: 16px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.task-description {
+  font-size: 12px;
+  font-style: italic;
 }
