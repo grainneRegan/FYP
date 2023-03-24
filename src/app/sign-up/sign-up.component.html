@@ -14,16 +14,16 @@
                 <h3 class="login-heading mb-4">Sign up now!</h3>
 
                 <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" value="" #userEmail required>
                   <label for="floatingInput">Email address</label>
-                  <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" #userEmail required>
                 </div>
                 <div class="form-floating mb-3">
-                  <label for="floatingInput">Username</label>
-                  <input type="text" class="form-control" id="floatingName" placeholder="userName" #userName required>
+                  <input type="text" class="form-control" id="floatingName" placeholder="userName" value="" #userName required>
+                  <label for="floatingName">Username</label>
                 </div>
                 <div class="form-floating mb-3">
+                  <input type="password" class="form-control" id="floatingPassword" placeholder="Password" value="" #userPwd required>
                   <label for="floatingPassword">Password</label>
-                  <input type="password" class="form-control" id="floatingPassword" placeholder="Password" #userPwd required>
                 </div>
                 <div class="formGroup">
                   <input type="button" class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" value="Sign Up" (click)="authService.SignUp(userEmail.value, userPwd.value, userName.value)">
