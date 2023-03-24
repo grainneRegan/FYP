@@ -93,6 +93,9 @@ export class ProfileComponent implements OnInit {
         const user2 = this.auth.currentUser;
         if (user2 !== null) {
           this.authService.Delete(user2);
+          if(user2.uid !== null) {
+            this.projectsService.delete(user2.uid);
+          }
         }
       }
 
