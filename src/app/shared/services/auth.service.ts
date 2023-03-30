@@ -82,25 +82,6 @@ export class AuthService {
         window.alert(error.message);
       });
   }
-  // Send email verfificaiton when new user sign up
-  SendVerificationMail() {
-    return this.afAuth.currentUser
-      .then((u: any) => u.sendEmailVerification())
-      .then(() => {
-        this.router.navigate(['verify-email-address']);
-      });
-  }
-  // Reset Forggot password
-  ForgotPassword(passwordResetEmail: string) {
-    return this.afAuth
-      .sendPasswordResetEmail(passwordResetEmail)
-      .then(() => {
-        window.alert('Password reset email sent, check your inbox.');
-      })
-      .catch((error) => {
-        window.alert(error);
-      });
-  }
   // Returns true when user is logged in and email is verified
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
@@ -108,39 +89,21 @@ export class AuthService {
     // return user !== null && user.emailVerified !== false ? true : false;
 
   }
-  // Sign in with Google
-//   GoogleAuth() {
-//     return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-//       this.router.navigate(['home-component']);
-//     });
-//   }
-  // Auth logic to run auth providers
-//   AuthLogin(provider: any) {
-//     return this.afAuth
-//       .signInWithPopup(provider)
-//       .then((result) => {
-//         this.router.navigate(['home-component']);
-//         this.SetUserData(result.user);
-//       })
-//       .catch((error) => {
-//         window.alert(error);
-//       });
-//   }
-  /* Setting up user data when sign in with username/password,
-  sign up with username/password and sign in with social auth
-  provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
+
+  /* Setting up user data when sign in with username/password */
   SetUserData(user: any, userName: string) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );
+    // creating an empty array of tasks for a single project
     const project = {tasks: []}
+    // creating a user of type User (an interface defined in this project)
     const userData: User = {
       uid: user.uid,
       email: user.email,
       projects: [project],
       displayName: userName,
     };
-    console.log("Here");
     return userRef.set(userData, {
       merge: true,
     });

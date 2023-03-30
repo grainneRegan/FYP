@@ -31,8 +31,11 @@ export class ProjectsService {
     return this.usersRef.add({ ...user });
   }
 
+  /* Update the Firestore database corresponding to the defined path in usersRef
+   The parameters are the data to update the document with and the id for which
+   document to update.
+   This returns a promise once this action is completed*/
   update(id: string, data: any): Promise<void> {
-    console.log("in update, id: ", id, "email: ", data)
     return this.usersRef.doc(id).update(data);
   }
 
