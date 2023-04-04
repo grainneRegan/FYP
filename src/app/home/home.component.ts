@@ -34,7 +34,6 @@ export class HomeComponent implements OnInit {
   calendarVisible = true;
   private dbPath = '/Events';
   eventsRef: AngularFirestoreCollection<Event>;
-  //testEvents2 = [{id:'2', title: 'test', start: '2023-03-16', end: '2023-03-17'}];
   initialEvents2: any[] = [];
 
   calendarOptions: CalendarOptions = {
@@ -45,7 +44,6 @@ export class HomeComponent implements OnInit {
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     },
     initialView: 'dayGridMonth',
-    //initialEvents: this.testEvents2,
     weekends: true,
     editable: true,
     selectable: true,
@@ -74,14 +72,12 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.retrieveProjects();
     this.retrieveEvents().then(() => {
-        this.formatEvents().then(() => {
-          this.populateInitialEvents().then(() => {
-            this.updateCalendar()
-            });
-          });
+      this.formatEvents().then(() => {
+        this.updateCalendar()
       });
+    });
     this.getTasks();
-    console.log('tasks', this.taskArray);
+    console.log(this.taskArray)
   }
 
   populateCalendar() {
@@ -93,7 +89,8 @@ export class HomeComponent implements OnInit {
                                 right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
                               },
                               initialView: 'dayGridMonth',
-                              initialEvents: this.initialEvents2,
+                              // field which initialises the calendar with the initial events retrieved
+                              initialEvents: this.arrayFormattedEvents,
                               weekends: true,
                               editable: true,
                               selectable: true,
@@ -105,10 +102,8 @@ export class HomeComponent implements OnInit {
                               eventClick: this.handleEventClick.bind(this),
                               eventsSet: this.handleEvents.bind(this)
                             };
-                            console.log('hello');
                             this.calendarOptionsUpdated = true;
                             this.getTasks();
-                            console.log('tasks', this.taskArray);
   }
 
   updateCalendar() {
@@ -116,23 +111,13 @@ export class HomeComponent implements OnInit {
     this.populateCalendar();
   }
 
-  populateInitialEvents() {
-    return new Promise<void>((resolve) => {
-      for(let tempEvent of this.arrayFormattedEvents) {
-        const event = {id: tempEvent.id, title: tempEvent.title, start: tempEvent.start, end: tempEvent.end}
-        this.initialEvents2.push(event);
-      }
-      console.log('initialEvents2', this.initialEvents2);
-      resolve();
-      return this.initialEvents2;
-    });
-  }
-
+  // method to take the retrieved events
+  // and add only events created by the current user to a new array
   formatEvents() {
     return new Promise<void>((resolve) => {
-     const user2 = localStorage.getItem('user');
-     if (user2 !== null) {
-        const parsedUser = JSON.parse(user2);
+     const user = localStorage.getItem('user');
+     if (user !== null) {
+        const parsedUser = JSON.parse(user);
         const uid = parsedUser.uid;
         for(let tempEvent of this.arrayEvents) {
           if(tempEvent.event.uid === uid){
@@ -153,13 +138,14 @@ export class HomeComponent implements OnInit {
     calendarOptions.weekends = !calendarOptions.weekends;
   }
 
+  // method which is called when a date is selected on the calendar
   handleDateSelect(selectInfo: DateSelectArg) {
+    // gets title from dropdown list
     const title = this.selectedProject;
-    console.log(this.selectedProject);
     const calendarApi = selectInfo.view.calendar;
 
-    calendarApi.unselect(); // clear date selection
-
+    calendarApi.unselect();
+    // only creates event object if title has been selected
     if (title) {
       const eventData = {
         id: createEventId(),
@@ -167,10 +153,12 @@ export class HomeComponent implements OnInit {
         start: selectInfo.startStr,
         end: selectInfo.endStr,
         allDay: selectInfo.allDay
-        //userId:
       };
+      // adds event to calendar and also calls method to add event to firestore database
       calendarApi.addEvent(eventData);
       this.addEvent(eventData);
+      this.selectedProject = '';
+      this.taskSelected = false;
     }
   }
 
@@ -221,23 +209,23 @@ export class HomeComponent implements OnInit {
       }
     }
   }
-
+   // method to retrieve events from firestore
    retrieveEvents(): Promise<void> {
+     // return a promise when the method is resolved
      return new Promise<void>((resolve) => {
-       const user2 = localStorage.getItem('user');
-       if (user2 !== null) {
-         const parsedUser = JSON.parse(user2);
+       const user = localStorage.getItem('user');
+       if (user !== null) {
+         const parsedUser = JSON.parse(user);
          const uid = parsedUser.uid;
-         console.log(uid)
+         // retrieves all the data from the firestore events database
          this.getAll().snapshotChanges().pipe(
            map(changes =>
              changes.map(c =>
-               ({ id: c.payload.doc.id, event: c.payload.doc.data() }) // modify here
+               ({ id: c.payload.doc.id, event: c.payload.doc.data() })
              )
            )
          ).subscribe(data => {
            this.arrayEvents = data;
-           console.log('In retrieve', this.arrayEvents);
            resolve();
          });
        } else {
@@ -268,11 +256,10 @@ export class HomeComponent implements OnInit {
    }
 
    addEvent(eventData: any) : any {
-   const user2 = localStorage.getItem('user');
-    if (user2 !== null) {
-      const parsedUser = JSON.parse(user2);
+   const user = localStorage.getItem('user');
+    if (user !== null) {
+      const parsedUser = JSON.parse(user);
       const tempUid = parsedUser.uid;
-      console.log(tempUid)
       try {
         return this.eventsRef.add({ ...eventData, uid: tempUid});
         console.log("Document written with ID: ", this.eventsRef);
@@ -282,9 +269,3 @@ export class HomeComponent implements OnInit {
     }
    }
 }
-
-//
-//         id: eventData.event.id,
-//         title: eventData.event.title,
-//         start: eventData.event.start,
-//         end: eventData.event.end,

@@ -14,8 +14,6 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { LogInComponent } from './login/login.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { VerifyEmailComponent } from './verify-email/verify-email.component';
 
 // Firebase services + environment module
 import { AngularFireModule } from '@angular/fire/compat';
@@ -29,10 +27,8 @@ import { AuthService } from "./shared/services/auth.service";
 //imports for calendar
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { ProjectListComponent } from './project-list/project-list.component';
-import { UserOperationsComponent } from './user-operations/user-operations.component';
 
 import { FormsModule } from '@angular/forms';
-import { UserUpdateComponent } from './user-update/user-update.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {PipeService} from "./shared/services/pipe.service";
@@ -43,11 +39,7 @@ import {PipeService} from "./shared/services/pipe.service";
     SignUpComponent,
     HomeComponent,
     LogInComponent,
-    ForgotPasswordComponent,
-    VerifyEmailComponent,
     ProjectListComponent,
-    UserOperationsComponent,
-    UserUpdateComponent,
     ProfileComponent,
     PipeService
   ],

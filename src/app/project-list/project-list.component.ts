@@ -44,221 +44,232 @@ export class ProjectListComponent implements OnInit {
    this.retrieveProjects();
    console.log('retrieveProjects called');
    this.testItem();
-   //this.retrieveTasks();
  }
 
- ngOnChanges(): void {
+  ngOnChanges(): void {
    }
 
-   //     get all projects
-   refreshList(): void {
-     this.currentIndex = -1;
-     this.retrieveProjects();
+  // function to retrieve the projects again
+  refreshList(): void {
+   this.currentIndex = -1;
+   this.retrieveProjects();
+  }
+
+  closePopup() {
+     this.isPopupVisible = false;
    }
 
-   closePopup() {
-       this.isPopupVisible = false;
-     }
+  showPopup() {
+    this.isSubPopup2Visible = false;
+    this.isPopupVisible = true;
+  }
+  closeSubTaskPopup() {
+   this.isSubPopupVisible = false;
+  }
 
-    showPopup() {
-        this.isPopupVisible = true;
-      }
-    closeSubTaskPopup() {
-       this.isSubPopupVisible = false;
-     }
+  showSubTaskPopup() {
+      this.isSubPopupVisible = true;
+  }
 
-    showSubTaskPopup() {
-        this.isSubPopupVisible = true;
-      }
+  closeSubTask2Popup() {
+     this.isSubPopup2Visible = false;
+   }
 
-      closeSubTask2Popup() {
-         console.log('close');
-         this.isSubPopup2Visible = false;
-       }
-
-      showSubTask2Popup(currentProjectName: string) {
-          this.isSubPopup2Visible = true;
-          this.newProjectName = currentProjectName;
-        }
-
-      sortTasksByImportance() {
-        const flaggedFirst = this.arrayProjects.sort((a,b) => b.flagged - a.flagged);
-        console.log('sort by importance', this.arrayProjects)
-      }
-
-      sortTasksByCompleted() {
-        const flaggedFirst = this.arrayProjects.sort((a,b) => a.completed - b.completed);
-        console.log('sort by completed', this.arrayProjects)
-      }
-
-      sortTasksByDueDate() {
-        const flaggedFirst = this.arrayProjects.sort((a, b) => this.convertDates(a.date, b.date));
-        console.log('sort by date', this.arrayProjects)
-      }
-
-      convertDates(a: string, b: string) {
-        const date1 = new Date(a);
-        const date2 = new Date(b);
-        return date1.getTime() - date2.getTime();
-      }
-
-     retrieveProjects(): void {
-       const user2 = localStorage.getItem('user');
-       if (user2 !== null) {
-         const parsedUser = JSON.parse(user2);
-         const uid = parsedUser.uid;
-         console.log(uid)
-         this.projectsService.getAll().snapshotChanges().pipe(
-           map(changes =>
-             changes.map(c =>
-               ({ id: c.payload.doc.id, projects: c.payload.doc.data()?.projects }) // modify here
-             )
-           ),
-           map(arrayProjects => {
-             const user = arrayProjects.find(user => user.id === uid);
-             return user?.projects || []; // extract projects array from user or return empty array
-           })
-         ).subscribe(data => {
-           this.arrayProjects = data;
-           console.log(this.arrayProjects);
-         });
-       }
-     }
-
-
-     addProject(projectName: string, description: string, date: string) {
-       const user2 = this.auth.currentUser;
-       const uid = user2?.uid;
-       console.log("this.currentUser.uid", uid)
-
-       if (uid) {
-         const currentDate = new Date();
-         const selectedDate = new Date(date);
-
-         if (selectedDate.getTime() < currentDate.getTime()) {
-           alert("The due date must be a date in the future.");
-           return;
-         }
-
-         // Retrieve the projects only once, outside of the subscription
-         const newProject = { projectName, description, date, completed: false , flagged: false, tasks: []};
-         const projects = [...this.arrayProjects, newProject]; // create a new array with the new project added
-
-         // Update the projectsService and arrayProjects properties
-         this.projectsService.update(uid, { projects });
-         this.arrayProjects = projects;
-         this.isSubPopupVisible = true;
-         this.newProjectName = projectName;
-         this.closePopup();
-       }
-     }
-
-
-    updateTaskCompletedStatus(projectName: string, completed: boolean) {
-      const user = this.auth.currentUser;
-      const uid = user?.uid;
-
-      if (uid) {
-        // Find the project with the given name
-        const projectIndex = this.arrayProjects.findIndex(project => project.projectName == projectName);
-
-        if (projectIndex !== -1) {
-          // Update the completed field of the project
-          const updatedProject = { ...this.arrayProjects[projectIndex], completed: completed };
-          const updatedArrayProjects = [...this.arrayProjects.slice(0, projectIndex), updatedProject, ...this.arrayProjects.slice(projectIndex + 1)];
-
-          // Update the projectsService and arrayProjects properties
-          this.projectsService.update(uid, { projects: updatedArrayProjects });
-          this.arrayProjects = updatedArrayProjects;
-        }
-      }
+  showSubTask2Popup(currentProjectName: string) {
+      this.isSubPopup2Visible = true;
+      this.isPopupVisible = false;
+      this.isSubPopupVisible = false;
+      this.newProjectName = currentProjectName;
     }
 
-    updateTaskFlaggedStatus(projectName: string, flagged: boolean) {
-      const user = this.auth.currentUser;
-      const uid = user?.uid;
+  sortTasksByImportance() {
+    this.arrayProjects.sort((a,b) => b.flagged - a.flagged);
+  }
 
-      if (uid) {
-        // Find the project with the given name
-        const projectIndex = this.arrayProjects.findIndex(project => project.projectName == projectName);
+  sortTasksByCompleted() {
+    this.arrayProjects.sort((a,b) => a.completed - b.completed);
+  }
 
-        if (projectIndex !== -1) {
-          // Update the completed field of the project
-          const updatedProject = { ...this.arrayProjects[projectIndex], flagged: flagged };
-          const updatedArrayProjects = [...this.arrayProjects.slice(0, projectIndex), updatedProject, ...this.arrayProjects.slice(projectIndex + 1)];
+  sortTasksByDueDate() {
+    this.arrayProjects.sort((a, b) => this.convertDates(a.date, b.date));
+  }
 
-          // Update the projectsService and arrayProjects properties
-          this.projectsService.update(uid, { projects: updatedArrayProjects });
-          this.arrayProjects = updatedArrayProjects;
-        }
+  convertDates(a: string, b: string) {
+    const date1 = new Date(a);
+    const date2 = new Date(b);
+    return date1.getTime() - date2.getTime();
+  }
+
+  // function to retrieve all projects/task and their subtasks associated to the current user
+  retrieveProjects(): void {
+   const user = localStorage.getItem('user');
+   if (user !== null) {
+     // get the current users uid
+     const parsedUser = JSON.parse(user);
+     const uid = parsedUser.uid;
+     // call the get function which gets all data from the database
+     this.projectsService.getAll().snapshotChanges().pipe(
+       // map the projects to an array of objects with id and tasks
+       map(changes =>
+         changes.map(c =>
+           ({ id: c.payload.doc.id, projects: c.payload.doc.data()?.projects })
+         )
+       ),
+       // get the list of projects/tasks associated with the current user
+       map(arrayProjects => {
+         const user = arrayProjects.find(user => user.id === uid);
+         return user?.projects || [];
+       })
+       // update the local projects array to the data stream
+     ).subscribe(data => {
+       this.arrayProjects = data;
+     });
+   }
+  }
+
+  /* Method to add main task to current user, all 3 parameters are passed in from user input */
+  addTask(projectName: string, description: string, date: string) {
+   // retrieve the uid of the current signed in user
+   const user = this.auth.currentUser;
+   const uid = user?.uid;
+   // on condition that user exists
+   if (uid) {
+     // get the current Date and convert the selected date to a comparable date
+     const currentDate = new Date();
+     const selectedDate = new Date(date);
+     // if the selected date is in the past alert the user that the date must be some time in the future
+     // and don't continue to add the task to the user.
+     if (selectedDate.getTime() < currentDate.getTime()) {
+       alert("The due date must be a date in the future.");
+       return;
+     }
+
+     // Creates a new JSON object with the passed in parameters and default properties
+     const newProject = { projectName, description, date, completed: false , flagged: false, tasks: []};
+     // creating a new array of projects and adding but the old array of projects and the new project to the arrray
+     const projects = [...this.arrayProjects, newProject];
+
+     // call the update method tp update the projects corresponding to the current user
+     // updating the local array of projects with added project
+     this.projectsService.update(uid, { projects });
+     this.arrayProjects = projects;
+     // setting flag to true to showcase popup to add subtask to main task
+     this.isSubPopupVisible = true;
+     // set variable so that the subtask is added to correct main task
+     this.newProjectName = projectName;
+     // call method to close current popup
+     this.closePopup();
+   } else {
+      console.log('No valid user found, task has failed to add.');
+      this.closePopup();
+    }
+  }
+
+
+  updateTaskCompletedStatus(projectName: string, completed: boolean) {
+    const user = this.auth.currentUser;
+    const uid = user?.uid;
+
+    if (uid) {
+      // Find the project with the given name
+      const projectIndex = this.arrayProjects.findIndex(project => project.projectName == projectName);
+
+      if (projectIndex !== -1) {
+        // Update the completed field of the project
+        const updatedProject = { ...this.arrayProjects[projectIndex], completed: completed };
+        const updatedArrayProjects = [...this.arrayProjects.slice(0, projectIndex), updatedProject, ...this.arrayProjects.slice(projectIndex + 1)];
+
+        // Update the projectsService and arrayProjects properties
+        this.projectsService.update(uid, { projects: updatedArrayProjects });
+        this.arrayProjects = updatedArrayProjects;
       }
     }
+  }
 
-    testItem() {
+  updateTaskFlaggedStatus(projectName: string, flagged: boolean) {
+    const user = this.auth.currentUser;
+    const uid = user?.uid;
+
+    if (uid) {
+      // Find the project with the given name
+      const projectIndex = this.arrayProjects.findIndex(project => project.projectName == projectName);
+
+      if (projectIndex !== -1) {
+        // Update the completed field of the project
+        const updatedProject = { ...this.arrayProjects[projectIndex], flagged: flagged };
+        const updatedArrayProjects = [...this.arrayProjects.slice(0, projectIndex), updatedProject, ...this.arrayProjects.slice(projectIndex + 1)];
+
+        // Update the projectsService and arrayProjects properties
+        this.projectsService.update(uid, { projects: updatedArrayProjects });
+        this.arrayProjects = updatedArrayProjects;
+      }
+    }
+  }
+
+  testItem() {
+   const user2 = this.auth.currentUser;
+   const uid = user2?.uid;
+   console.log("this.currentUser.uid", uid )
+
+   if (uid) {
+    console.log('valid user')
+   }
+  }
+
+   deleteTask(projectName: string) {
      const user2 = this.auth.currentUser;
      const uid = user2?.uid;
-     console.log("this.currentUser.uid", uid )
+     console.log("this.currentUser.uid", uid)
 
      if (uid) {
-      console.log('valid user')
+       // Find the index of the project to remove
+       const projectIndex = this.arrayProjects.findIndex(project => project.projectName == projectName);
+
+       // Check if the project is found
+       if (projectIndex > -1) {
+         // Remove the project from the array
+         this.arrayProjects.splice(projectIndex, 1);
+
+         // Update the projectsService and arrayProjects properties
+         this.projectsService.update(uid, { projects: this.arrayProjects });
+         console.log('Task deleted: ', projectName, 'new array', this.arrayProjects)
+       } else {
+         console.log('Project not found:', projectName);
+       }
      }
    }
 
-     deleteTask(projectName: string) {
-       const user2 = this.auth.currentUser;
-       const uid = user2?.uid;
-       console.log("this.currentUser.uid", uid)
 
-       if (uid) {
-         // Find the index of the project to remove
-         const projectIndex = this.arrayProjects.findIndex(project => project.projectName == projectName);
+   addSubTask(taskName: string, description: string) {
+     const user = this.auth.currentUser;
+     const uid = user?.uid;
 
-         // Check if the project is found
-         if (projectIndex > -1) {
-           // Remove the project from the array
-           this.arrayProjects.splice(projectIndex, 1);
+     if (uid) {
+       // Find the project with the given name
+       const projectIndex = this.arrayProjects.findIndex(project => project.projectName == this.newProjectName);
+       if (projectIndex !== -1) {
+         // Add the new task to the project
+         const newTask = { taskName, description, completed: false };
+         const updatedTasks: { taskName: string, description: string, completed: boolean }[] = [];
+          this.arrayProjects[projectIndex].tasks.push(newTask);
 
-           // Update the projectsService and arrayProjects properties
-           this.projectsService.update(uid, { projects: this.arrayProjects });
-           console.log('Task deleted: ', projectName, 'new array', this.arrayProjects)
-         } else {
-           console.log('Project not found:', projectName);
-         }
+          // Update the project in the arrayProjects property
+          const updatedProject = { ...this.arrayProjects[projectIndex], tasks: this.arrayProjects[projectIndex].tasks };
+          const updatedArrayProjects = [...this.arrayProjects.slice(0, projectIndex), updatedProject, ...this.arrayProjects.slice(projectIndex + 1)];
+
+          // Update the projectsService and arrayProjects properties
+          this.projectsService.update(uid, { projects: updatedArrayProjects });
+          this.arrayProjects = updatedArrayProjects;
+          this.closeSubTaskPopup();
+          this.closeSubTask2Popup();
        }
      }
+   }
 
-
-     addTask(taskName: string, description: string) {
-       const user = this.auth.currentUser;
-       const uid = user?.uid;
-
-       if (uid) {
-         // Find the project with the given name
-         const projectIndex = this.arrayProjects.findIndex(project => project.projectName == this.newProjectName);
-         if (projectIndex !== -1) {
-           // Add the new task to the project
-           const newTask = { taskName, description, completed: false };
-           const updatedTasks: { taskName: string, description: string, completed: boolean }[] = [];
-           console.log('updated Tasks', updatedTasks);
-            this.arrayProjects[projectIndex].tasks.push(newTask);
-
-            // Update the project in the arrayProjects property
-            const updatedProject = { ...this.arrayProjects[projectIndex], tasks: this.arrayProjects[projectIndex].tasks };
-            const updatedArrayProjects = [...this.arrayProjects.slice(0, projectIndex), updatedProject, ...this.arrayProjects.slice(projectIndex + 1)];
-
-            // Update the projectsService and arrayProjects properties
-            this.projectsService.update(uid, { projects: updatedArrayProjects });
-            this.arrayProjects = updatedArrayProjects;
-            this.closeSubTaskPopup();
-            this.closeSubTask2Popup();
-         }
-       }
-     }
-
-     setActiveUser(user: User, index: number): void {
-       this.currentUser2 = user;
-       this.currentIndex = index;
-     }
+   setActiveUser(user: User, index: number): void {
+     this.currentUser2 = user;
+     this.currentIndex = index;
+   }
 
    onAuthStateChanged(): void {
      onAuthStateChanged(this.auth, (user) => {
@@ -276,17 +287,6 @@ export class ProjectListComponent implements OnInit {
      })({ particleCount: 200, spread: 200 });
    }
 
-//    updateTaskCompletedStatus(task: Task) {
-//      task.completed = !task.completed;
-//      const index = this.project.tasks.indexOf(task);
-//      this.project.tasks.splice(index, 1);
-//      if (task.completed) {
-//        this.project.tasks.push(task);
-//      } else {
-//        this.project.tasks.unshift(task);
-//      }
-//      this.projectsService.update(this.project);
-//    }
 
    updateTask(task: any, projectName: string) {
      const user2 = this.auth.currentUser;
@@ -332,70 +332,4 @@ export class ProjectListComponent implements OnInit {
        }
      }
    }
-
 }
-
-//   title = 'My Projects';
-//     filter: 'all' | 'active' | 'done' = 'all';
-
-//     allItems = [
-//       { projectName: 'Assignment1', description: 'AI', date: '01/10/22', done: true },
-//       { projectName: 'Assignment2', description: 'RMI', date: '01/10/22', done: false },
-//       { projectName: 'Assignment3', description: 'Powerpoint', date: '01/10/22', done: false },
-//       { projectName: 'Assignment4', description: 'Report', date: '01/10/22', done: false },
-//     ];
-
-
-//     getProjects(): any {
-//       const user = this.auth.currentUser as User;
-//       console.log('user', user, user?.uid)
-//       if (user !== null) {
-//         const project: any = user.projects[0].completed;
-//         console.log('project', project)
-//         return project;
-//       }
-//       return [];
-//     }
-
-//     get items() {
-//     console.log('hello')
-//       if (this.filter === 'all') {
-//         return this.getProjects();
-//       }
-//       return this.getProjects().filter((item: Projects) => this.filter === 'done' ? item.completed : !item.completed);
-//     }
-
-
-//     addItem(projectName: string, description: string, date: string) {
-//       const user2 = this.auth.currentUser;
-//       const uid = user2?.uid;
-//       console.log("this.currentUser.uid", uid )
-//
-//       if (uid) {
-//         this.projectsService.getProjects(uid).subscribe((user: any) => {
-//           const projects = user.projects || [];
-//           console.log('initialprojects', projects);
-//           const newProject = { projectName, description, date, completed: false };
-//           console.log('newprojects', newProject);
-//           projects.push(newProject);
-//           this.projectsService.update(uid, { projects });
-//         });
-//       }
-//     }
-
-//         this.getProjects().unshift({
-//           projectName,
-//           description,
-//           date,
-//           done: false
-//         });
-
-// .then(() => {
-//             updateProfile(user2! , { projects: jsonProject })
-//               .then(() => {
-//                 this.message = 'The status was updated successfully!';
-//                 this.submitted = true;
-//               })
-//               .catch(err => console.log(err));
-//           })
-//           .catch(err => console.log(err));
