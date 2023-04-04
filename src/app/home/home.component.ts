@@ -77,6 +77,7 @@ export class HomeComponent implements OnInit {
       });
     });
     this.getTasks();
+    console.log(this.taskArray)
   }
 
   populateCalendar() {

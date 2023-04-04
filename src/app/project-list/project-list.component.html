@@ -2,15 +2,14 @@
 <div class="topnav">
   <a style="font-size: 35px;" >scheduleIt</a>
   <a routerLink="/home-component" >Calender</a>
-  <a class="active" >Projects</a>
+  <a class="active" >Tasks</a>
   <a routerLink="/profile">Profile</a>
   <a (click)="authService.SignOut()">Sign Out</a>
 </div>
 
 
-
 <div class="row">
-  <div class="d-flex justify-content-center align-items-center w-150 mx-auto">
+  <div class="d-flex justify-content-center w-150 mx-auto">
     <!-- Add New Task card -->
     <div *ngIf="isPopupVisible" class="col-md-3">
       <div class="card my-4">
@@ -38,7 +37,7 @@
                 <label for="addItemInput" class="form-label">Task Name</label>
                 <input
                   #newItem
-                  placeholder="Enter project name"
+                  placeholder="Enter task name"
                   class="form-control"
                   id="addItemInput" />
               </div>
@@ -102,6 +101,7 @@
           <div class="main">
             Add a sub task here for new Task {{newProjectName}} ...
             <form>
+              <br>
               <div class="mb-3">
                 <label for="addItemInput" class="form-label">Name of Sub Task</label>
                 <input
@@ -150,6 +150,7 @@
           <div class="main">
             Add a sub task of Task {{newProjectName}} ...
             <form>
+              <br>
               <div class="mb-3">
                 <label for="addItemInput" class="form-label">Name of Sub Task</label>
                 <input

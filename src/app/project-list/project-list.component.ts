@@ -60,6 +60,7 @@ export class ProjectListComponent implements OnInit {
    }
 
   showPopup() {
+    this.isSubPopup2Visible = false;
     this.isPopupVisible = true;
   }
   closeSubTaskPopup() {
@@ -71,12 +72,13 @@ export class ProjectListComponent implements OnInit {
   }
 
   closeSubTask2Popup() {
-     console.log('close');
      this.isSubPopup2Visible = false;
    }
 
   showSubTask2Popup(currentProjectName: string) {
       this.isSubPopup2Visible = true;
+      this.isPopupVisible = false;
+      this.isSubPopupVisible = false;
       this.newProjectName = currentProjectName;
     }
 
